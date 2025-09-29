@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>House List {{ .title }}</title>
+  </head>
+  <body>
+    <h1>House List {{ .title }}</h1>
+    <section>
+      <div>Total Listings: {{ .filter_count }} / {{.total_count}}</div>
+    </section>
+
+    <section>
+      {{range .items}}
+      <div>
+        <h2><a href="{{.LinkURL}}" target="_blank">{{.Title}}</a></h2>
+        <div>Price: ${{.Price}}</div>
+        <div>Type: {{.Type}}</div>
+        <div>Address: {{.Address}}</div>
+        <div>Agent: {{.AgentName}}</div>
+        <div>Created: {{.CreateTime}}</div>
+        <div class="house-images">
+          {{range .ImageURLs}}
+          <img
+            src="{{.}}"
+            alt="House image"
+            style="width: 200px; height: auto; margin-right: 10px"
+          />
+          {{end}}
+        </div>
+        <hr />
+      </div>
+      {{end}}
+    </section>
+  </body>
+</html>

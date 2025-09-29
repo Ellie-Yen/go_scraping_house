@@ -1,14 +1,17 @@
 package main
 
 import (
-	"github.com/Ellie-Yen/go_scraping_house/sdk"
-	"github.com/Ellie-Yen/go_scraping_house/view"
+	"log"
+
+	"github.com/Ellie-Yen/go_scraping_house/routes"
 )
 
 func main() {
-	items, err := sdk.QueryHouseList(15000, 25000, false)
-	if err != nil {
-		return
-	}
-	view.GenView(*items)
+	// add routes
+	r := routes.SetupRouter()
+
+	port := "8080"
+	host := "http://0.0.0.0:" + port
+	log.Println("Server running on", "\x1b]8;;"+host+"\x07"+""+host+"\x1b]8;;\x07"+"\u001b[0m")
+	r.Run(":" + port)
 }

@@ -1,15 +1,14 @@
-package sdk
+package api
 
 import (
 	"fmt"
-
-	"github.com/Ellie-Yen/go_scraping_house/api"
 )
 
 const PAGE_SIZE = 30
 
-func QueryHouseList(priceMin int, priceMax int, saveRaw bool) (*api.HouseListResponse, error) {
-	firstPage, err := api.HouseList(priceMin, priceMax, 0, saveRaw)
+// FIXME: current the api has some issue, some data is not fetched correctly
+func QueryHouseList(priceMin int, priceMax int, saveRaw bool) (*HouseListResponse, error) {
+	firstPage, err := houseList(priceMin, priceMax, 0, saveRaw)
 	if err != nil {
 		return nil, err
 	}
@@ -17,10 +16,10 @@ func QueryHouseList(priceMin int, priceMax int, saveRaw bool) (*api.HouseListRes
 	pageCount := totalCount / PAGE_SIZE
 
 	// use goroutine to query house list
-	ch := make(chan *api.HouseListResponse, pageCount)
+	ch := make(chan *HouseListResponse, pageCount)
 	for i := range pageCount {
 		go func(i int) {
-			resp, err := api.HouseList(priceMin, priceMax, i, saveRaw)
+			resp, err := houseList(priceMin, priceMax, i, saveRaw)
 			if err != nil {
 				fmt.Println("error: ", err)
 			}

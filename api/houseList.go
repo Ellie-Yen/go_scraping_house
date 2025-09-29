@@ -11,25 +11,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-type HouseListResponse struct {
-	HousePreviews []HousePreview
-	TotalCount    int
-}
-
-// HousePreview represents a real estate listing with all its details
-type HousePreview struct {
-	Title      string
-	Price      string
-	Type       string
-	Address    string
-	Tags       []string
-	ImageURLs  []string
-	AgentName  string
-	LinkURL    string
-	CreateTime string
-}
-
-func HouseList(priceMin int, priceMax int, page int, saveRaw bool) (*HouseListResponse, error) {
+func houseList(priceMin int, priceMax int, page int, saveRaw bool) (*HouseListResponse, error) {
 	// Create a new request
 	url := fmt.Sprintf("%s/list?region=1&price=%v$_%v$&other=lift&sort=posttime_desc", BASE_URL, priceMin, priceMax)
 	if page > 0 {

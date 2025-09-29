@@ -1,4 +1,7 @@
 bin/
 /.vscode/
 .DS_Store
+
+# ignore temporary html, but not ignore templates html
 *.html
+!templates/*.html
